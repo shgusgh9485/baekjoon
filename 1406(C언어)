@@ -1,0 +1,113 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define SIZE 100001
+
+typedef struct node{
+struct node* left;
+struct node* right;
+char data;
+}Node;
+
+int main() {
+  Node* head=(Node*)malloc(sizeof(Node));
+  Node* cur=head;
+  char sentense[SIZE];
+  int M, len;
+    
+  head->data='N';
+  head->left=NULL; head->right=NULL;
+  scanf("%s", sentense);
+    
+  len=strlen(sentense); //24줄에 strlen()함수 사용시 반복문이 돌 때마다 함수를 호출하여 시간이 지연됨.
+    
+  for(int i=0; i<len; ++i){
+    Node* newnode=(Node*)malloc(sizeof(Node));
+    newnode->data=sentense[i];
+    newnode->left=cur;
+    newnode->right=NULL;
+    cur->right=newnode;
+    cur=newnode;
+  }
+
+  scanf("%d", &M);
+  
+  for(int i=0; i<M; i++){
+    char commend;
+    char c;
+    
+    scanf(" %c", &commend); //20줄로 인해 입력버퍼에 '\n'이 남아있으니 getchar() 또는 % 앞에 공백을 두고 입력을 받는다.
+    
+    switch(commend){
+      case 'L':{
+        if(cur->left!=NULL){
+          cur=cur->left;
+        }
+        break;
+      }
+      case 'D':{
+        if(cur->right!=NULL){
+          cur=cur->right;
+        }
+        break;
+      }
+      case 'B':{
+        Node* delnode=(Node*)malloc(sizeof(Node));
+        if(cur->left!=NULL){
+          if(cur->right==NULL){
+            delnode=cur;
+            delnode->left->right=NULL;
+            cur=delnode->left;
+            delnode->left=NULL;
+          }
+          else{
+            delnode=cur;
+            delnode->left->right=cur->right;
+            delnode->right->left=cur->left;
+            cur=delnode->left;
+            delnode->left=NULL;
+            delnode->right=NULL;
+          }
+          free(delnode);
+        }
+        break;
+      }
+      case 'P':{
+        Node* newnode=(Node*)malloc(sizeof(Node));
+        
+        scanf(" %c", &c); //39줄로 인해 입력버퍼에 '\n'이 남아있으니 getchar() 또는 % 앞에 공백을 두고 입력을 받는다.
+        
+        newnode->data=c;
+        newnode->left=NULL; newnode->right=NULL;
+
+        if(cur->right==NULL){
+          cur->right=newnode;
+          newnode->left=cur;
+          cur=newnode;
+        }
+        else{
+          newnode->right=cur->right;
+          cur->right->left=newnode;
+          cur->right=newnode;
+          newnode->left=cur;
+          cur=newnode;
+        }
+        break;
+      }
+    }
+  }
+
+  head=head->right;
+  while(head){
+    printf("%c", head->data);
+    head=head->right;
+  }
+    
+  while(head){ //동적할당 메모리 해제.
+    cur=head->right;  
+    free(head);
+    head = cur;
+  }  
+    
+  return 0;
+}
