@@ -1,0 +1,34 @@
+#include <iostream>
+#include <string>
+#include <stack>
+using namespace std;
+
+int main() {
+  int T;
+  string sentense;
+  stack <char> ch;
+
+  ios::sync_with_stdio(0);
+  cin.tie(0); cout.tie(0);
+
+  cin>>T;
+  cin.ignore();
+  for(int i=0; i<T; i++){
+    getline(cin, sentense);
+    sentense+=' ';
+    for(int j=0; j<sentense.size(); j++){
+      if(sentense[j]==' '){
+        while(!ch.empty()){
+          cout<<ch.top();
+          ch.pop();
+        }
+        cout<<" ";
+      }
+      else{
+        ch.push(sentense[j]);
+      }
+    }
+    cout<<"\n";
+    }
+  return 0;
+  }
