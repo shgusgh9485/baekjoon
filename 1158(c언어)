@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+  int N, K, cur;
+  int *arr, check[5001]={0,};  //5000으로 할 경우 5000 5000이 입력되면 배열 범위를 넘어서 접근해서 오류발생.
+  
+  scanf("%d %d", &N, &K);
+  arr=(int*)malloc(N*sizeof(int));
+
+  for(int i=0; i<N; i++)
+    arr[i]=i+1;
+
+  cur=K-1;
+  printf("<%d", arr[cur]);
+  check[K-1]=1;
+  
+  for(int i=1; i<N; i++){
+    for(int j=0; j<K; j++){
+      cur++;
+      if(check[cur]==1) {
+        while(check[cur])
+        cur++; 
+      }
+      if(cur==N) cur=0;
+      if(check[cur]==1) {  //25번 줄로 인해 다시 첫번째로 왔을 때 그 첫번째도 check가 1이라면 또 이동시켜야 함.
+        while(check[cur])
+        cur++; 
+      }
+      /*
+       while(1) { //31~35번 줄 코드는 인터넷에서 본 더 깔끔한 코드.
+                cur++;
+                if(cur == N) cur = 0;
+                if(!check[cur]) break;
+            }
+      */
+    }
+    printf(", %d", arr[cur]);
+    check[cur]=1;
+  }
+  printf(">");
+
+  return 0;
+}
