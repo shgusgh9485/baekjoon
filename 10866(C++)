@@ -1,0 +1,57 @@
+#include <iostream>
+#include <string>
+#include <deque>
+using namespace std;
+
+int main() {
+  ios::sync_with_stdio(0);
+	cin.tie(0); cout.tie(0);
+
+  int N, key;
+  string commend;
+  deque<int> d;
+
+  cin>>N;
+
+ for(int i = 0; i < N; i++) { //switch문은 문자는 허용되나 문자열은 허용하지 않기에 if~else로 구현함.
+		cin>>commend;
+		if(commend=="push_front") {
+			cin>>key;
+			d.push_front(key);
+		}
+		else if(commend=="push_back") {
+			cin>>key;
+			d.push_back(key);
+		}
+		else if(commend=="pop_front"){
+			if (d.empty()) cout<<-1<<'\n';
+			else{
+				cout<<d.front()<<'\n';
+				d.pop_front();
+			}
+		}
+		else if(commend=="pop_back"){
+			if(d.empty()) cout<<-1<<'\n';
+			else{
+				cout<<d.back()<<'\n';
+				d.pop_back();
+			}
+		}
+		else if(commend=="size"){
+			cout<<d.size()<<'\n';
+		}
+		else if(commend=="empty"){
+			cout<<d.empty()<<'\n';
+		}
+		else if(commend=="front"){
+			if(d.empty()) cout<<-1<<'\n';
+			else cout<<d.front()<<'\n';
+		}
+		else if(commend=="back"){
+			if(d.empty()) cout<<-1<<'\n';
+			else cout<<d.back()<<'\n';
+		}
+	}
+  
+  return 0;
+}
