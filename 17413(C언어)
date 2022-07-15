@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+
+int top=-1;
+char stack[100002]; 
+char word[100002];
+
+int main() {
+  int len;
+  fgets(word, 100002, stdin);
+
+  len=strlen(word);
+
+  for(int i=0; i<len; i++){
+    if(word[i]=='<'){
+      if(!(top==-1)){
+        while(!(top==-1)){
+          printf("%c", stack[top--]);
+        }
+       }
+      while(!(word[i]=='>')){
+          printf("%c", word[i]);
+          ++i;
+        }
+          printf(">");
+      }
+      else if(word[i]==' ' || i==len-1){
+        while(!(top==-1)){
+          printf("%c", stack[top--]);
+        }
+        printf(" ");
+      }
+      else{
+        stack[++top]=word[i];
+      }
+    }
+
+  return 0;
+  }
