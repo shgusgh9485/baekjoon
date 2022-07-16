@@ -1,0 +1,41 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int main() {
+  ios::sync_with_stdio(0); 
+  cin.tie(0); cout.tie(0);
+  
+  int* arr;
+  int* nge;
+  int N;
+  stack<int> s;
+
+  cin>>N;
+  
+  arr=new int[N];
+  nge=new int[N];
+
+  for(int i=0; i<N; ++i){
+    cin>>arr[i];
+  }
+
+  for(int i=0; i<N; ++i){
+    while(!s.empty() && arr[s.top()]<arr[i]){ //top에 있는 것은 i-1.
+      nge[s.top()]=arr[i];
+      s.pop();
+    }
+    s.push(i);
+  }
+
+  while(!s.empty()){ //스택에 남아있다는 것은 24번 반복문이 실행되지 않았다는 것이므로 오른 쪽에 큰 수가 없다는 뜻임.
+    nge[s.top()]=-1; 
+    s.pop();
+  }
+
+  for(int i=0; i<N; ++i){
+    cout<<nge[i]<<" ";
+  }
+  
+  return 0;
+}
