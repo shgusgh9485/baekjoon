@@ -1,0 +1,48 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+int main() {
+  ios::sync_with_stdio(0); 
+  cin.tie(0); cout.tie(0);
+
+  int *arr;
+  int *nfg;
+  int *f;
+  int N;
+  stack<int> s;
+
+  cin>>N;
+
+  arr=new int[1000000]; 
+  nfg=new int[1000000];
+  f=new int[1000000];
+
+  for(int i=0; i<N; ++i){
+    cin>>arr[i];
+    f[arr[i]-1]++;
+  }
+
+  for(int i=0; i<N; ++i){
+    while(!s.empty() && f[arr[s.top()]-1]<f[arr[i]-1]){
+      nfg[s.top()]=arr[i];
+      s.pop();
+    }
+    s.push(i);
+  }
+
+  while(!s.empty()){
+    nfg[s.top()]=-1;
+    s.pop();
+  }
+
+  for(int i=0; i<N; ++i) {
+		cout<<nfg[i]<<" ";
+	}
+    
+  delete []arr;  
+  delete []nfg;  
+  delete []f;  
+
+  return 0;
+}
