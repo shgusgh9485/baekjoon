@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX 1000001
+
+int main() {
+  char a[MAX], b[MAX], c[MAX], d[MAX];
+  long long A, B; //a와 b를 붙힌 수가 10000001000000이 나올 수 있기에 long long으로 자료형 선언.
+
+  scanf("%s %s %s %s", a, b, c, d);
+
+  strcat(a, b);
+  strcat(c, d);
+
+  A=atoll(a); //a와 b를 붙힌 문자열의 형태를 덧셈을 위해서 long long 형태로 바꾸어야함.
+  B=atoll(c); //c와 d를 붙힌 문자열의 형태를 덧셈을 위해서 long long 형태로 바꾸어야함.
+
+  printf("%lld", A+B); //%lld는 long long을 출력하기 위함.
+
+  return 0;
+}
