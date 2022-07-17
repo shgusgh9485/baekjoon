@@ -1,0 +1,62 @@
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+int main() {
+  ios::sync_with_stdio(0);
+  cin.tie(0); cout.tie(0);
+
+  string str;
+  stack<char> s;
+
+  cin>>str;
+
+  int len=str.length();
+
+  for(int i=0; i<len; ++i){
+    switch(str[i]){ //if else~문으로 작성해도 상관없음.
+        case '(':{
+          s.push(str[i]);
+          break;
+        }
+        case ')':{ //괄호가 끝났으니 스택에 쌓인 연산자들 모두 출력.
+          while(!s.empty() && s.top()!='('){
+            cout<<s.top();
+            s.pop(); 
+          }
+          s.pop(); //'(' pop하기.
+          break;
+        }
+        case '+':
+        case '-':{ //+와-는 우선순위가 가장 낮기 때문에 '('이전까지 스택에 쌓인 연산자를 모두 출력 후 push함.
+          while(!s.empty() && s.top()!='('){
+            cout<<s.top();
+            s.pop();
+          }
+          s.push(str[i]);
+          break;
+        }
+        case '*':
+        case '/':{ //*와/는 우선순위가 가장 높기 때문에 *랑/일 때만 스택에 쌓인 연산자를 모두 출력하고 push함.
+          while(!s.empty() && (s.top()=='*' || s.top()=='/')){ 
+            cout<<s.top();
+            s.pop();
+          }
+          s.push(str[i]);
+          break;
+        }
+        default:{ //if else문으로 구현시에는 'A'<= && 'Z'>= 아스키코드 이용하여 조건문에 넣는 것과 동일함.
+          cout<<str[i];
+          break;
+        }
+      }
+    }
+
+  while(!s.empty()){ //스택에 남아있는 연산자들 출력함.
+    cout<<s.top();
+    s.pop();
+  }
+
+  return 0;
+}
