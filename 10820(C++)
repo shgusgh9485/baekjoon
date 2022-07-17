@@ -1,0 +1,27 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+  string str;
+  int big, small, blank, num, len;
+
+  while(getline(cin, str)){ //문자열을 입력받는 동안 반복하라는 의미임.
+    big=0; small=0; blank=0; num=0;
+
+    for(int i=0; i<str.size(); ++i){
+      if(str[i]>='A' && str[i]<='Z')
+        big++;
+      else if(str[i]>='a' && str[i]<='z')
+        small++;
+      else if(str[i]==' ')
+        blank++;
+      else if(str[i]>='0' && str[i]<='9')
+        num++;
+    }
+    
+    cout<<small<<" "<<big<<" "<<num<<" "<<blank<<'\n';
+  }
+  
+  return 0;
+}
