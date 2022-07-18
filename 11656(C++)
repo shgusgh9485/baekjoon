@@ -1,0 +1,26 @@
+#include <iostream>
+#include <string>
+#include <algorithm> //sort함수 사용을 위해 선언.
+using namespace std;
+
+int main() {
+  ios::sync_with_stdio(0);
+  cin.tie(0); cout.tie(0);
+  
+  string s, temp[1000];
+  
+  cin>>s;
+  int len=s.length();
+
+  for(int i=0; i<len; ++i){
+    temp[i]=s.substr(i, len); //substr(시작, 종료), i~len까지의 문자열을 temp배열에 저장해줌.
+  }
+
+  sort(temp, temp+len); //sort(시작, 종료), 배열 전체를 오름차순으로 정렬할 것이기에 sort(temp, temp+len)으로 선언함.
+
+  for(int i=0; i<len; ++i){
+    cout<<temp[i]<<'\n'; //오름차순(알파벳순)으로 정렬된 temp배열을 출력함.
+  }
+  
+  return 0;
+}
