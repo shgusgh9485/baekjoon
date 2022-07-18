@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+  char s[1001];
+  char s_list[1001][1001];
+  char temp[1001];
+  int len;
+
+  scanf("%s", s);
+  len=strlen(s);
+
+  for(int i=0; i<len; ++i){ //접미사 저장.
+    for(int j=i; j<len; ++j){
+      s_list[i][j-i]=s[j];
+    }
+  }
+
+  for(int i=0; i<len-1; ++i){ //접미사를 둘씩! 비교하며 오름차순으로 정렬해야 하기에 버블정렬 사용함.
+    for(int j=0; j<len-1-i; ++j){
+      if(strcmp(s_list[j], s_list[j+1])>0){ //앞이 더 크다면 스왑진행.
+        strcpy(temp, s_list[j]);
+        strcpy(s_list[j], s_list[j+1]);
+        strcpy(s_list[j+1], temp);
+      }
+    }
+  }
+
+  for(int i=0; i<len; ++i){
+    printf("%s \n", s_list[i]);
+  }
+  
+  return 0;
+}
