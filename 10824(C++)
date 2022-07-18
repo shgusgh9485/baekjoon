@@ -1,0 +1,17 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+  string a, b, c, d;
+  long long A, B;
+
+  cin>>a>>b>>c>>d;
+
+  A=stoll(a+b); //string을 long long으로 변환하기 위해 stoll을 사용함.
+  B=stoll(c+d);
+  
+  cout<<A+B;
+  
+  return 0;
+}
