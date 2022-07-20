@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main() {
+  int T, N;
+  int method[11];
+
+  scanf("%d", &T);
+
+  method[0]=0;
+  method[1]=1;
+  method[2]=2;
+  method[3]=4;
+
+  for(int i=0; i<T; ++i){
+    scanf("%d", &N);
+    for(int i=4; i<=N; ++i){
+      method[i]=(method[i-3]+method[i-2]+method[i-1]);
+    }
+    printf("%d \n", method[N]);
+  }
+  
+  return 0;
+}
