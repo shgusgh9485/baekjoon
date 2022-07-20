@@ -1,0 +1,24 @@
+#include <stdio.h>
+#define MAX(a, b) a<b ? b:a
+
+int main() {
+  int N;
+  int p[10001]={0,};
+  int max_p[10001]={0,};
+
+  scanf("%d", &N);
+
+  for(int i=1; i<=N; ++i){
+    scanf("%d", &p[i]);
+  }
+
+  for(int i=1; i<=N; ++i){
+    for(int j=1; j<=i; ++j){
+      max_p[i]=MAX(max_p[i], max_p[i-j]+p[j]); //i=1, j=1 일 때는 0과 p[j]를 비교하여 max_p[1]을 초기화해주고 그 후에 계속 비교하여 배열을 채워주는 것임.
+    }
+  }
+
+  printf("%d", max_p[N]);
+  
+  return 0;
+}
