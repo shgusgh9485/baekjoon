@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main() {
+  int N, max_length=0;
+  int arr[1000];
+  int dp[1000]={0,};
+
+  scanf("%d", &N);
+
+  for(int i=0; i<N; ++i){
+    scanf("%d", &arr[i]);
+  }
+
+  for(int i=0; i<N; ++i){
+    dp[i]=1; //비교 전이기에 자기 자신 하나이므로 길이는 1설정.
+    for(int j=0; j<i; ++j){
+      if(arr[j]<arr[i] && dp[j]>=dp[i]){ //현재 i가 자신의 앞에 있는 j보다 당연히 커야하고 현재 dp[i]보다 자신의 앞에 있는 dp[j]가 크거나 같아야 길이를 유지하며 연장할 수 있다. 
+        dp[i]=dp[j]+1;                   //예를 들어 10 20 10(j) 30(i) 인 경우 dp[j]는 1이고 dp[i]는 3인데 만일 이 조건을 넣어주지 않으면 2로 초기화되기에 문제가 생김.
+      }
+    }
+  }
+
+  max_length=dp[0]; //~28 최대길이 찾기.
+  for(int i=1; i<N; ++i){
+    if(max_length<dp[i]){
+      max_length=dp[i];
+    }
+  }
+
+  printf("%d", max_length);
+
+  return 0;
+}
