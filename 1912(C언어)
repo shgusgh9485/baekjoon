@@ -1,0 +1,26 @@
+#include <stdio.h>
+#define MAX(a, b) a>b ? a:b
+
+int main() {
+  int n, sum, max_sum, p_max_sum;
+  int arr[100001]={0,};
+  int dp[100001]={0,};
+
+  scanf("%d", &n);
+
+  for(int i=1; i<=n; ++i){
+    scanf("%d", &arr[i]);
+  }
+
+  dp[1]=arr[1];
+  max_sum=dp[1];
+
+  for(int j=2; j<=n; ++j){
+    dp[j]=MAX(arr[j], dp[j-1]+arr[j]); 
+    max_sum=MAX(max_sum, dp[j]);
+  }
+
+  printf("%d", max_sum);
+
+  return 0;
+}
