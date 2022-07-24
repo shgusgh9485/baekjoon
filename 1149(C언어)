@@ -1,0 +1,39 @@
+#include <stdio.h>
+
+int min2(int a, int b){
+  return a<b ? a:b;
+}
+
+int min3(int a, int b, int c){
+  return a<b && a<c ? a:b<c ? b:c;
+}
+
+int main() {
+  int N, cost;
+  int arr[1001][4]={0,}; //arr[집의수][색], 1은 빨강 2는 초록 . . .
+  int dp[1001][4]={0,};
+
+  scanf("%d", &N);
+
+  for(int i=1; i<=N; ++i){
+    for(int j=1; j<=3; ++j){
+      scanf("%d", &arr[i][j]);
+    }
+  }
+
+  dp[1][1]=arr[1][1];
+  dp[1][2]=arr[1][2];
+  dp[1][3]=arr[1][3];
+
+  for(int i=2; i<=N; ++i){ //두 번째 집부터는 앞쪽 집의 다른 두 색 중에서 비용이 작은 값에 현재 색의 비용을 더한 값을 갱신시켜 나감.
+    dp[i][1]=min2(dp[i-1][2], dp[i-1][3])+arr[i][1];
+    dp[i][2]=min2(dp[i-1][1], dp[i-1][3])+arr[i][2];
+    dp[i][3]=min2(dp[i-1][1], dp[i-1][2])+arr[i][3];
+  }
+
+  cost=min3(dp[N][1], dp[N][2], dp[N][3]); //N번 째까지 갱신시킨 후에 N번 째가 빨강색인 경우, 초록색인 경우, 파란색인 경우 중에서 비용이 최소인 것을 찾음.
+
+  printf("%d", cost);
+  
+  return 0;
+}
