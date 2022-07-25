@@ -1,0 +1,31 @@
+#include <stdio.h>
+#define MAX(a, b) (a<b ? b:a) //23, 24번 줄과 같이 +연산자가 뒤에 붙으면 우선순위로 인해 문제가 생기니 괄호로 묶어주는 것이 좋음.
+
+int main() {
+  int T, n;
+  int dp[2][100001]={0,};
+  int arr[2][100001]={0,};
+
+  scanf("%d", &T);
+
+  for(int i=0; i<T; ++i){
+    scanf("%d", &n);
+    for(int j=0; j<2; ++j){
+      for(int k=1; k<=n; ++k){
+        scanf("%d", &arr[j][k]);
+      }
+    }
+    
+    dp[0][1]=arr[0][1];  
+    dp[1][1]=arr[1][1]; 
+    
+    for(int l=2; l<=n; ++l){
+      dp[0][l]=MAX(dp[1][l-1], dp[1][l-2])+arr[0][l]; //위에 있는 스티커를 선택한 경우.
+      dp[1][l]=MAX(dp[0][l-1], dp[0][l-2])+arr[1][l]; //아래에 있는 스티커를 선택한 경우.
+    }
+    
+    printf("%d \n", MAX(dp[0][n], dp[1][n])); //위에 있는 스티커를 선택한 경우와 아래에 있는 스티커를 선택한 경우 중에서 최대비용 고르기.
+  }
+  
+  return 0;
+}
