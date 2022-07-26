@@ -1,0 +1,41 @@
+#include <stdio.h>
+#define MAX(a, b) (a<b ? b:a)
+
+int main() {
+  int N, max_length=0;
+  int arr[1001];
+  int dp1[1001]={0,};
+  int dp2[1001]={0,};
+
+  scanf("%d", &N);
+
+  for(int i=1; i<=N; ++i){
+    scanf("%d", &arr[i]);
+  } 
+
+  for(int i=1 ; i<=N; ++i){ //앞에서를 기준으로 가장 긴 증가하는 부분 수열의 길이 구하기.(증가 역할)
+    dp1[i]=1;
+    for(int j=1; j<i; ++j){
+      if(arr[i]>arr[j] && dp1[i]<=dp1[j]){
+        dp1[i]=dp1[j]+1;
+      }
+    }
+  }
+
+  for(int i=N ; i>0; --i){ //뒤에서를 기준으로 가장 긴 증가하는 부분 수열의 길이 구하기.(감소 역할)
+    dp2[i]=1;
+    for(int j=N; j>i; --j){
+      if(arr[i]>arr[j] && dp2[i]<=dp2[j]){
+        dp2[i]=dp2[j]+1;
+      }
+    }
+  }
+  
+  for(int i=1; i<=N; ++i){
+    max_length=MAX(max_length, dp1[i]+dp2[i]-1); //-1을 해주는 이유는 증가하는 부분과 감소하는 부분이 만나는 정수는 중복되기에 -1을 해주는 것임.
+  }  
+  
+  printf("%d", max_length);
+  
+  return 0;
+}
