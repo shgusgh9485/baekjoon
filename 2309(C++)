@@ -1,0 +1,38 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main() {
+  ios::sync_with_stdio(0);
+  cin.tie(0); cout.tie(0);
+  
+  int n_height[9];
+  int over, sum=0;
+  int not1=-1, not2=-1;
+
+  for(int i=0; i<9; ++i){
+    cin>>n_height[i];
+    sum+=n_height[i];
+  }
+
+  over=sum-100;
+
+  sort(n_height, n_height+9);
+
+  for(int i=0; i<9; ++i){
+    if(not1!=-1 && not2!=-1) break;
+    for(int j=i+1; j<9; ++j){
+      if(not1!=-1 && not2!=-1) break;
+      if(n_height[i]+n_height[j]==over){
+        not1=i; not2=j;
+      }
+    }
+  }
+
+  for(int i=0; i<9; ++i){
+    if(i==not1 || i==not2) continue;
+    cout<<n_height[i]<<'\n';
+  }
+  
+  return 0;
+}
