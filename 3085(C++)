@@ -1,0 +1,73 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int maxcandy=0;
+
+void findRow(char arr[50][50], int size){ //세로열 비교함수.
+  int count;
+
+  for(int i=0; i<size; ++i){
+    count=1;
+    for(int j=0; j<size; ++j){
+      if(arr[j][i]==arr[j+1][i]) count++;
+      else{
+        if(count>maxcandy) maxcandy=count;
+        count=1;
+      }
+    }
+  }
+}
+
+void findColumn(char arr[50][50], int size){ //가로열 비교함수.
+  int count;
+
+  for(int i=0; i<size; ++i){
+    count=1;
+    for(int j=0; j<size; ++j){
+      if(arr[i][j]==arr[i][j+1]) count++;
+      else{
+        if(count>maxcandy) maxcandy=count;
+        count=1;
+      }
+    }
+  }
+}
+
+int main() {
+  ios::sync_with_stdio(0);
+  cin.tie(0); cout.tie(0);
+
+  int N;
+  char board[50][50];
+
+  cin>>N;
+
+  for(int i=0; i<N; ++i){
+    for(int j=0; j<N; ++j){
+      cin>>board[i][j];
+    }
+  }
+
+  for(int i=0; i<N; ++i){
+    for(int j=0; j<N-1; ++j){
+      swap(board[i][j], board[i][j+1]); //가로 바꾸기.
+
+      findRow(board, N); //세로 최대 갯수 찾기.
+      findColumn(board, N); //가로 최대 갯수 찾기.
+
+      swap(board[i][j+1], board[i][j]); //54번 줄에서 바꾼 것을 다시 원상복구.
+
+      swap(board[j][i], board[j+1][i]); //세로 바꾸기.
+
+      findRow(board, N); 
+      findColumn(board, N);
+
+      swap(board[j][i], board[j+1][i]); //61번 줄에서 바꾼 것을 다시 원상복구.
+    }
+  }
+
+  cout<<maxcandy<<'\n';
+  
+  return 0;
+}
