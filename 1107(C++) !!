@@ -1,0 +1,50 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int check(int button[10], int n){
+  if(n==0){
+    if(button[0]) return 0; //0번 버튼이 고장났다면 누를 수 없으니 return 0.
+    else return 1;          //0번 버튼이 고장나지 않았다면 현재채널 100에서 0번을 1번 눌러야하니 return 1.
+  }
+  else{
+    int len=0;
+    while(n>0){                  //각 자리를 하나하나 누를 수 있는 지 판별하기.
+      if(button[n%10]) return 0; //해당 자리가 고장난 버튼이면 누를 수 없으니 return 0. 
+      else{
+        n/=10; //다음 자리로 이동하기(일의 자리->십의 자리-> . . .)
+        len+=1;
+      }
+    }
+    return len; //모두 누를 수 있는 버튼이라면 각 자리의 수가 누르는 버튼의 횟수이므로 return len.
+  }
+}
+
+int main() {
+  ios::sync_with_stdio(0);
+  cin.tie(0); cout.tie(0);
+
+  int N, M, num;
+  int button[10]={0,};
+
+  cin>>N>>M;
+
+  for(int i=0; i<M; ++i){
+    cin>>num;
+    button[num]=1;
+  }
+
+  int result=abs(100-N); //현재 채널인 100에서 N까지 + or -를 한 번씩 눌러서 가는 횟수.
+
+  for(int i=0; i<=1000000; ++i){ //i번에서 N번 채널로 가는 경우 구하기.
+    int len=check(button, i); //i번 버튼을 누르는 횟수 (ex.4516번 = 4)    
+    if(len>0){
+      int press=abs(N-i); //(ex.4516번)에서 N번까지 + or -를 한 번씩 눌러서 가는 횟수.
+      result=min(result, press+len); 
+    }
+  }
+
+  cout<<result;
+
+  return 0;
+}
