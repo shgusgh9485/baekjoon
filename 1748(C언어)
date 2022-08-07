@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+int main() {
+  int N, count=0;
+
+  scanf("%d", &N);
+
+  for(int i=1; i<=N; i*=10){
+    count+=N-i+1;   //if else문으로 나눠서 풀면 시간초과가 발생하여 이 식을 찾는 것이 이 문제의 핵심.
+  }
+
+  printf("%d \n", count);
+  
+  return 0;
+}
