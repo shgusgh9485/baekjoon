@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int arr[7];
+
+void func(int N, int M, int k){
+  for(int i=1; i<=N; ++i){
+    arr[k]=i; //순차적으로 1부터 저장하기
+    if(k==M-1){ //k는 인덱스이므로 M-1일 경우 배열에 있는 모든 수를 출력.
+      for(int i=0; i<M; ++i){
+        printf("%d ", arr[i]);
+    }
+      printf("\n");
+    }
+    else func(N, M, k+1); //if문에 걸리지 않으면 배열에 값을 저장해야하니 계속 재귀호출.
+  }
+}
+
+int main() {
+  int N, M;
+
+  scanf("%d %d", &N, &M);
+  func(N, M, 0);
+  
+  return 0;
+}
