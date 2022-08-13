@@ -1,0 +1,45 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int arr[8];
+int result[8];
+bool check[8];
+
+void func(int N, int M, int k){
+  if(k==M){
+    for(int i=0; i<M; ++i){
+      cout<<result[i]<<" ";
+    }
+    cout<<'\n';
+    return;
+  }
+  
+  for(int i=0; i<N; ++i){
+    if(!check[i]){
+      result[k]=arr[i];
+      check[i]=true;
+      func(N, M, k+1);
+      check[i]=false;
+    }
+  }
+}
+
+int main() {
+  ios::sync_with_stdio(0);
+  cin.tie(0); cout.tie(0);
+  
+  int N, M;
+
+  cin>>N>>M;
+
+  for(int i=0; i<N; ++i){
+    cin>>arr[i];
+  }  
+
+  sort(arr, arr+N);
+  
+  func(N, M, 0);
+  
+  return 0;
+}
