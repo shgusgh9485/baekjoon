@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		int num=0;
+		int left, down;
+		int width=0;
+		boolean[][] check= new boolean[100][100];
+		
+		num=in.nextInt();
+		for(int i=0; i<num; ++i) {
+			left=in.nextInt();
+			down=in.nextInt();
+			for(int j=left; j<left+10; ++j) 
+				for(int k=down; k<down+10; ++k) 
+					check[j][k]=true;
+		}
+		
+		for(int i=0; i<100; ++i)
+			for(int j=0; j<100; ++j) {
+				if(check[i][j]==true)         //true인 영역은 색이 칠해진 영역이고 넓이는 한칸당 +1이므로 true만 세면 해당 넓이를 구할 수 있음
+					width++;
+			}
+		
+		System.out.print(width);
+    }
+}
