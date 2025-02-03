@@ -98,7 +98,7 @@ public class Main {
         int n=Integer.parseInt(br.readLine());
         StringTokenizer st=new StringTokenizer(br.readLine());
         for(int i=0; i<n; ++i) {
-            card=Integer.parseInt(st.nextToken());
+            card=Integer.parseInt(st.nextToken()); //br.readLine()으로 하면 3 2 1 과 같이 입력 받았을 때 공백을 못 끊으므로 토큰으로 끊어줘야함
             map.put(card, map.getOrDefault(card, 0)+1);
         }
 
