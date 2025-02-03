@@ -1,0 +1,114 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		ArrayList<Integer> list=new ArrayList<>(); 
+		
+		int n=in.nextInt();
+		for(int i=0; i<n; ++i) {
+			int card=in.nextInt();
+			list.add(card); //ArrayList에는 int형을 Integer형으로 변환하여 추가해야하므로 add함수를 통해 추가해야 함.
+		}
+		
+		int m=in.nextInt();
+		for(int i=0; i<m; ++i) {
+			int have=Collections.frequency(list, in.nextInt());
+			System.out.print(have+" ");
+		}
+	}
+}
+
+!!위 코드는 성공적으로 출력이 되지만, 시간 초과 발생(Collections.frequency함수가 리스트 전체를 순회하므로 반복문 횟수 m과 리스트 크기 n을 곱한 O(mn)이 최악의 경우이며 최대 O(250,000,000,000)이므로 시간이 초과됨)!!
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		HashMap<Integer, Integer> map=new HashMap<>();
+		int card;
+		
+		int n=in.nextInt();
+		for(int i=0; i<n; ++i) {
+			card=in.nextInt();
+			if(map.containsKey(card)) {
+			    int value=map.get(card);
+				map.put(card, ++value);
+			}
+			else
+				map.put(card, 1);
+		}
+		
+		int m=in.nextInt();
+		for(int i=0; i<m; ++i) {
+			card=in.nextInt();
+			if(map.containsKey(card)) 
+				System.out.print(map.get(card)+" ");
+			else
+				System.out.print(0+" ");
+		}
+	}
+}
+
+!!위 코드는 성공적으로 출력이 되지만, 시간 초과 발생(if문에 map.containsKey와 값을 가져오는 map.get함수, 값을 증가시키는 map.put 3개가아닌 map.getOrDefault를 사용하는 것이 효율적!)
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+    	Scanner in=new Scanner(System.in);
+        HashMap<Integer, Integer> map=new HashMap<>();
+        StringBuilder sb=new StringBuilder();
+        int card;
+        
+        int n=in.nextInt();
+        for(int i=0; i<n; ++i) {
+            card=in.nextInt();
+            map.put(card, map.getOrDefault(card, 0)+1); //card에 해당하는 키가 없으면 0을 반환하고+1, 해당하는 키가 있으면 해당 값에+1(if, else문 처리을 한방에 처리)
+        }
+
+        int m=in.nextInt();
+        for(int i=0; i<m; ++i) {
+            card=in.nextInt();
+            sb.append(map.getOrDefault(card, 0)).append(" ");
+        }
+
+        System.out.println(sb.toString());
+    }
+}
+
+!!위 코드는 성공적으로 실행도 되고 시간 초과도 되지 않으나 더욱 더 시간을 효율적으로 줄이기 위해선 아래와 같이 Buffer출력 방식 사용
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        HashMap<Integer, Integer> map=new HashMap<>();
+        StringBuilder sb=new StringBuilder();
+        int card;
+        
+        int n=Integer.parseInt(br.readLine());
+        StringTokenizer st=new StringTokenizer(br.readLine());
+        for(int i=0; i<n; ++i) {
+            card=Integer.parseInt(st.nextToken());
+            map.put(card, map.getOrDefault(card, 0)+1);
+        }
+
+        int m=Integer.parseInt(br.readLine());
+        st=new StringTokenizer(br.readLine());
+        for(int i=0; i<m; ++i) {
+            card=Integer.parseInt(st.nextToken());
+            sb.append(map.getOrDefault(card, 0)).append(" ");
+        }
+
+        System.out.println(sb.toString());
+    }
+}
