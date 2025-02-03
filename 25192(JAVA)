@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		int n=in.nextInt();
+		int count=0;
+		int standard=0;
+		String[] str=new String[n];
+		
+		for(int i=0; i<n; ++i) {
+			str[i]=in.next();
+			if(!str[i].equals("ENTER")) {
+				count++;
+				for(int k=standard+1; k<i; ++k) {
+					if(str[k].equals(str[i])) {
+						count--;
+					}
+				}
+			}
+			if(str[i].equals("ENTER")) {
+				standard=i;
+			}
+
+		}
+		System.out.print(count);
+	}
+}
+
+!! 위 코드는 n의 값이 1~100000이므로 반복문에 의해 시간초과가 발생한다. !!
+
+import java.util.Scanner;
+import java.util.HashSet; //HashSet을 사용하기 위한 선언
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		int n=in.nextInt();
+		int count=0;
+		HashSet<String> chat = new HashSet<>(); //문자열 HashSet 초기화
+		String str;
+		
+		for(int i=0; i<n; ++i) {
+			str=in.next();
+			if(str.equals("ENTER"))
+				chat.clear(); //ENTER일 경우 HashSet 비우기
+			else if(!chat.contains(str)) { //현재 문자열이 HashSet에 없으면(최초입장) 추가하고 count증가
+				chat.add(str);
+				count++;
+			}
+		}
+		System.out.print(count);
+	}
+}
+
+
+
+
