@@ -1,0 +1,24 @@
+import java.util.Scanner;
+import java.util.HashSet;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		int n=in.nextInt();
+		HashSet<String> chat = new HashSet<>();
+		String a, b;
+		
+		chat.add("ChongChong");
+		
+		for(int i=0; i<n; ++i) {
+			a=in.next();
+			b=in.next();
+			if(chat.contains(a) || chat.contains(b)) { //사람 a와 사람b 둘중 하나라도 HashSet에 포함되어있다면(춤추는 사람)
+				chat.add(a);                             //둘 다 포함시킨다.(춤추게 됨)
+				chat.add(b);
+			}
+		}
+		
+		System.out.print(chat.size()); //HashSet에는 춤추는 사람이 들어가있으므로 크기가 곧 춤추는 사람의 수가 됨.
+    }
+}
