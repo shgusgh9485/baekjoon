@@ -1,0 +1,29 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner in=new Scanner(System.in);
+		HashSet<String> com = new HashSet<>();
+		String name, state;
+		
+		int n=in.nextInt();
+		
+		for(int i=0; i<n; ++i) {
+			name=in.next();
+			state=in.next();
+			if(state.equals("enter"))
+				com.add(name);
+			else if(state.equals("leave"))
+				com.remove(name);
+		}
+		
+		ArrayList<String> list=new ArrayList<>(com);
+		Collections.sort(list, Collections.reverseOrder()); //내림차순 정렬을 위해선 Collection.sort(해당, Collections.reverseOrder())을 사용해야함 reverse는 내림차순 정렬이 아닌 순서를 뒤지는 것이므로 착각 주의!!
+		
+		for(String str : list)
+			System.out.println(str);
+	}
+}
